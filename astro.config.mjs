@@ -6,7 +6,8 @@ export default defineConfig({
 	site: 'https://evotianusx.github.io',
 	integrations: [
 		starlight({
-			title: 'My Docs',
+
+			title: 'Evotianus Page',
 			social: {
 				github: 'https://github.com/evotianusx',
 				linkedin: 'https://www.linkedin.com/in/evotianusb',
