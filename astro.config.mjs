@@ -23,7 +23,15 @@ export default defineConfig({
     }, {
       label: 'Resume',
       link: '/resume'
-    }, {
+    },
+    {
+      label: 'Intro',
+      link: '/intro'
+    },
+
+
+
+    {
       label: 'Projects',
       autogenerate: {
         directory: 'projects'
