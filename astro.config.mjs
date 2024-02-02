@@ -1,12 +1,26 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, passthroughImageService } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import tailwind from "@astrojs/tailwind";
+import starlightThemeRapide from 'starlight-theme-rapide'
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://evotianusx.github.io',
+  image: {
+    service: passthroughImageService(),
+  },
   integrations: [starlight({
     title: 'Evotianus Page',
+    plugins: [starlightThemeRapide()],
+    head: [{
+      tag: 'script',
+      attrs: {
+        src: 'https://scripts.withcabin.com/hello.js',
+        defer: true,
+        async: true
+      }
+    }]
+    ,
     logo:
       { src: './src/assets/logo.svg' },
     customCss: [
@@ -23,7 +37,8 @@ export default defineConfig({
     }, {
       label: 'Resume',
       link: '/resume'
-    }, {
+    },
+    {
       label: 'Projects',
       autogenerate: {
         directory: 'projects'
