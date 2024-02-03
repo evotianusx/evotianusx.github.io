@@ -7,6 +7,15 @@ export default defineConfig({
   site: 'https://evotianusx.github.io',
   integrations: [starlight({
     title: 'Evotianus Page',
+    head: [{
+      tag: 'script',
+      attrs: {
+        src: 'https://scripts.withcabin.com/hello.js',
+        defer: true,
+        async: true
+      }
+    }]
+    ,
     logo:
       { src: './src/assets/logo.svg' },
     customCss: [
