@@ -34,13 +34,6 @@ export default defineConfig({
       link: '/resume'
     },
     {
-      label: 'Intro',
-      link: '/intro'
-    },
-
-
-
-    {
       label: 'Projects',
       autogenerate: {
         directory: 'projects'
