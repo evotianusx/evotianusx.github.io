@@ -22,9 +22,6 @@ jobs:
         uses: actions/checkout@v4 # Updated to v4 for latest features and security
       - name: Install, build, and upload your site
         uses: withastro/action@v2 # Updated to v2, the latest stable version
-        with:
-          node-version: 20 # Recommended to use a recent Node.js LTS version, e.g., 20 or 22 (optional)
-          package-manager: npm # The Node package manager that should be used. Defaults to npm if not specified (optional)
 
   deploy:
     needs: build
