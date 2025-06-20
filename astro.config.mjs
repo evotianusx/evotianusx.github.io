@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, passthroughImageService } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import tailwind from "@astrojs/tailwind";
 import starlightThemeRapide from 'starlight-theme-rapide'
@@ -6,6 +6,9 @@ import starlightThemeRapide from 'starlight-theme-rapide'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://evotianusx.github.io',
+  image: {
+    service: passthroughImageService(),
+  },
   integrations: [starlight({
     title: 'Evotianus Page',
     plugins: [starlightThemeRapide()],
