@@ -1,0 +1,122 @@
+---
+title: "Using Jules to Refine Your Resume and Integrate with GitHub"
+description: "A step-by-step guide on leveraging Jules to improve your resume.mdx file and manage changes with Git and GitHub."
+---
+
+## Introduction
+
+Jules is a powerful AI software engineering assistant designed to help you with various coding tasks, including content creation and refinement. This guide will walk you through how to use Jules to improve your `resume.mdx` file and then integrate those changes with your GitHub repository.
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside type="note" title="Author Note">
+  This article was written by Jules, your AI software engineering assistant! I followed a plan to outline, draft, and refine this content, much like how I can help you with your own documents and code.
+</Aside>
+
+## Scenario: Polishing Your `resume.mdx`
+
+Let's say you have an existing `resume.mdx` file in your project (like the one this website uses!). You want to make sure it's clear, impactful, and well-formatted. This is a perfect task for Jules.
+
+## Interacting with Jules: A Step-by-Step Guide
+
+Here's how you can collaborate with Jules to get your resume in top shape:
+
+### Step 1: Giving Jules the Task
+
+Start by clearly stating what you need. Jules understands natural language.
+
+**Example Prompt:**
+
+```
+"Jules, please review my `resume.mdx` file located at `src/content/docs/resume.mdx`. I'd like you to:
+1. Suggest improvements for clarity and impact in the descriptions of my roles and projects.
+2. Check for keyword optimization relevant to software engineering roles.
+3. Ensure the Markdown formatting is correct and consistent.
+4. Point out any typos or grammatical errors."
+```
+
+### Step 2: Jules's Plan
+
+Jules will process your request. It will likely:
+1.  Confirm the task and the file path.
+2.  Read the content of `resume.mdx`.
+3.  Propose a plan of action. This plan might involve several sub-steps, such as:
+    *   Analyzing each section (Experience, Skills, Projects).
+    *   Identifying specific sentences or bullet points for revision.
+    *   Suggesting alternative phrasings or additional keywords.
+    *   Listing formatting corrections.
+
+Jules will present this plan to you using its `set_plan` tool.
+
+### Step 3: Reviewing and Approving Jules's Plan
+
+This is a crucial step. Carefully review the plan Jules proposes.
+*   Does it align with your goals?
+*   Are there any parts you want to prioritize or skip?
+*   Do you have any clarifications or additional instructions based on the plan?
+
+Provide feedback to Jules. If you're happy with the plan, you'll typically approve it so Jules can proceed.
+
+### Step 4: Jules Implements Changes
+
+Once the plan is approved, Jules will get to work. It will use its tools (like `replace_with_git_merge_diff` or `overwrite_file_with_block` for more extensive changes) to modify your `resume.mdx` file directly. Jules will inform you as it completes each step of its plan.
+
+### Step 5: Iterative Refinement
+
+After Jules makes the initial set of changes, review them. You might have further requests.
+
+**Example Follow-up Prompts:**
+
+*   "Thanks, Jules. Can you rephrase the 'Staff Engineer' role at Nikel to put more emphasis on my leadership and mentoring contributions?"
+*   "In the skills section, please add 'Site Reliability Engineering (SRE)'."
+*   "The formatting for the dates under 'Experience' looks a bit inconsistent. Can you standardize it to 'Month Year – Month Year'?"
+
+Jules will address these follow-up requests, again likely proposing a quick plan or directly making the changes.
+
+## Integrating with GitHub
+
+Once your `resume.mdx` is polished and you're satisfied with Jules's work, it's time to save your changes to your GitHub repository.
+
+### Step 1: Jules Commits Changes
+
+You can ask Jules to commit the changes.
+
+**Example Prompt:**
+
+```
+"Jules, please commit these changes. Use the branch name `resume-refinements-jj` and the commit message 'Refine resume.mdx for clarity and impact'."
+```
+
+Jules will then use its `submit` tool to create a new commit with your specified branch and message.
+
+### Step 2: Pushing to GitHub (Manual Step for You)
+
+After Jules confirms the commit has been made, you'll need to interact with your local Git repository and GitHub.
+
+1.  **Pull the changes:** Open your terminal or Git client, navigate to your project directory, and run:
+    ```bash
+    git pull
+    ```
+    This fetches the commit Jules made in its isolated environment.
+2.  **Push the new branch:** Now, push the branch Jules created (e.g., `resume-refinements-jj`) to your remote GitHub repository:
+    ```bash
+    git push origin resume-refinements-jj
+    ```
+
+### Step 3: Creating a Pull Request (Optional but Recommended)
+
+If you're working with others or prefer a review process, create a Pull Request (PR) on GitHub.
+1.  Go to your repository on GitHub.
+2.  You should see a prompt to create a PR from the `resume-refinements-jj` branch.
+3.  Create the PR, review the changes one last time, and then merge it into your main branch (e.g., `main` or `master`).
+
+## Tips for Best Results When Working with Jules
+
+*   **Be Specific:** The more detailed your request, the better Jules can understand and execute it.
+*   **Break Down Large Tasks:** If you have a major overhaul in mind, consider breaking it into smaller, manageable requests.
+*   **Review Carefully:** Always review Jules's plans and the changes it makes. You are the ultimate owner of your code and content.
+*   **Iterate:** Don't expect perfection in the first pass. Use follow-up prompts to guide Jules toward the desired outcome.
+
+## Conclusion
+
+Using Jules to refine your `resume.mdx` can save you time and help you produce a more polished and professional document. By understanding how to interact with Jules and integrate its work with your GitHub workflow, you can significantly enhance your productivity.
