@@ -23,15 +23,15 @@
 
   // Derived state
   const summary = $derived<ParticipantSummary[]>(
-    calculateSummary(participants, items)
+    calculateSummary(participants, items),
   );
   const subtotal = $derived<number>(
-    items.reduce((sum, item) => sum + item.price, 0)
+    items.reduce((sum, item) => sum + item.price, 0),
   );
   const taxTotal = $derived<number>(subtotal * taxRate);
   const grandTotal = $derived<number>(subtotal + taxTotal);
   const calculatedTotal = $derived<number>(
-    summary.reduce((sum, participant) => sum + participant.total, 0)
+    summary.reduce((sum, participant) => sum + participant.total, 0),
   );
 
   // Methods
@@ -85,7 +85,7 @@
   function updateItem(
     id: number,
     field: keyof ReceiptItem,
-    value: string | number
+    value: string | number,
   ): void {
     items = items.map((item) =>
       item.id === id
@@ -94,17 +94,17 @@
             [field]:
               field === "price" ? parseFloat(value as string) || 0 : value,
           }
-        : item
+        : item,
     );
   }
 
   function calculateSummary(
     participants: string[],
-    items: ReceiptItem[]
+    items: ReceiptItem[],
   ): ParticipantSummary[] {
     return participants.map((participant) => {
       const participantItems = items.filter((item) =>
-        item.owners.includes(participant)
+        item.owners.includes(participant),
       );
       const subtotal = participantItems.reduce((sum, item) => {
         const share =
@@ -115,7 +115,7 @@
       // Calculate participant's share of tax (proportional to their subtotal)
       const taxShare = subtotal * taxRate;
       const total = subtotal + taxShare;
-
+   
       return {
         name: participant,
         items: participantItems,
@@ -152,7 +152,7 @@
       {#each participants as participant}
         <div class="participant-tag">
           {participant}
-          <button onclick={() => removeParticipant(participant)}>×</button>
+          <button onclick={() => removeParticipant(participant)}>X</button>
         </div>
       {/each}
     </div>
@@ -199,7 +199,6 @@
                 min="0"
                 step="1000.00"
               />
-      
             </td>
             {#each participants as participant}
               <td>
@@ -231,7 +230,7 @@
       <div class="summary-header">Total</div>
 
       {#each summary as participantSummary}
-        <div>{participantSummary.name}</div>
+        <div><h3>{participantSummary.name}</h3></div>
         <div>
           {#each participantSummary.items as item}
             <div>
@@ -268,6 +267,7 @@
     </div>
   </div>
 </div>
+
 <style>
   :root {
     /* Light mode colors */
@@ -314,20 +314,44 @@
   }
 
   .receipt-splitter {
-    max-width: 1000px;
+    /* Mobile-first: Use a percentage max-width for small screens */
+    max-width: 90%; /* Adjust as needed, e.g., 95% */
     margin: 0 auto;
     font-family: Arial, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     min-height: 100vh;
-    padding: 1rem;
+    padding: 1rem; /* Base padding for smaller screens */
+    box-sizing: border-box; /* Ensure padding is included in width */
+  }
+
+  /* Medium screens (e.g., tablets) */
+  @media (min-width: 600px) {
+    .receipt-splitter {
+      max-width: 768px; /* Example max-width for tablets */
+      padding: 1.5rem; /* Increase padding for larger screens */
+    }
+  }
+
+  /* Larger screens (desktops) */
+  @media (min-width: 1024px) {
+    .receipt-splitter {
+      max-width: 1000px; /* Max-width for desktops */
+      padding: 2rem; /* Even more padding */
+    }
   }
 
   .section {
     margin-bottom: 2rem;
-    padding: 1rem;
+    padding: 1rem; /* Base padding */
     background: var(--section-bg);
     border-radius: 8px;
+  }
+
+  @media (min-width: 600px) {
+    .section {
+      padding: 1.5rem; /* Increase padding on larger screens */
+    }
   }
 
   h3 {
@@ -337,7 +361,7 @@
 
   .participant-list {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Allow tags to wrap to the next line */
     gap: 0.5rem;
     margin-bottom: 1rem;
   }
@@ -350,6 +374,8 @@
     align-items: center;
     gap: 0.3rem;
     color: var(--text-color);
+    /* Ensure tags don't shrink too much */
+    flex-shrink: 0;
   }
 
   .participant-tag button {
@@ -364,11 +390,30 @@
 
   .add-participant {
     display: flex;
+    flex-wrap: wrap; /* Allow items to wrap */
     gap: 0.5rem;
   }
 
+  /* Make input and button stack on small screens */
+  .add-participant input[type="text"] {
+    flex-grow: 1; /* Allow input to grow */
+    min-width: 150px; /* Ensure input has a minimum width before wrapping */
+  }
+
+  .add-participant button {
+    /* No specific width, let flexbox handle it, but allow it to wrap */
+    flex-shrink: 0;
+  }
+
+  /* Wrapper for tables to enable horizontal scrolling */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+
   table {
-    width: 100%;
+    width: 100%; /* Important for tables inside overflow wrapper */
+    min-width: 600px; /* Ensure table has a minimum width if content is narrow */
     border-collapse: collapse;
     margin-bottom: 1rem;
   }
@@ -379,6 +424,15 @@
     text-align: left;
     border-bottom: 1px solid var(--border-color);
     color: var(--text-color);
+    font-size: 0.9rem; /* Adjust font size for mobile */
+  }
+
+  @media (min-width: 600px) {
+    th,
+    td {
+      padding: 0.75rem;
+      font-size: 1rem;
+    }
   }
 
   th {
@@ -388,17 +442,39 @@
   input[type="text"],
   input[type="number"] {
     padding: 0.3rem;
-    width: 100%;
+    width: 100%; /* Ensure inputs take full width of their container */
     box-sizing: border-box;
     background-color: var(--input-bg);
     color: var(--input-text);
     border: 1px solid var(--border-color);
+    border-radius: 4px; /* Added for consistency */
   }
 
+  /* Summary Grid - Mobile first (single column) */
   .summary-grid {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr; /* Single column on small screens */
     gap: 0.5rem;
+  }
+
+  /* Summary Grid - Medium screens (two columns) */
+  @media (min-width: 480px) {
+    .summary-grid {
+      grid-template-columns: 1fr 1fr; /* Two columns */
+    }
+    .summary-total-label {
+      grid-column: 1 / 3; /* Total label spans both columns */
+    }
+  }
+
+  /* Summary Grid - Larger screens (original five columns) */
+  @media (min-width: 768px) {
+    .summary-grid {
+      grid-template-columns: 1fr 2fr 1fr 1fr 1fr; /* Original layout */
+    }
+    .summary-total-label {
+      grid-column: 1 / 3;
+    }
   }
 
   .summary-header {
@@ -409,16 +485,18 @@
 
   .summary-total-label {
     font-weight: bold;
-    grid-column: 1 / 3;
+    /* Grid column handled by media queries above */
   }
 
   button {
-    padding: 0.3rem 0.6rem;
+    padding: 0.5rem 1rem; /* Slightly larger padding for better touch targets */
     background: var(--button-bg);
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 1rem;
+    white-space: nowrap; /* Prevent button text from wrapping unexpectedly */
   }
 
   button:hover {
@@ -437,5 +515,13 @@
     padding: 0.5rem;
     cursor: pointer;
     z-index: 1000;
+  }
+
+  /* Small screen adjustments for buttons in .add-participant */
+  @media (max-width: 480px) {
+    .add-participant button {
+      width: 100%; /* Make button full width if it's the only one or needs to stack */
+      margin-top: 0.5rem; /* Add some spacing if it wraps below the input */
+    }
   }
 </style>

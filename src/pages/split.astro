@@ -1,0 +1,9 @@
+---
+import Splitter from "../components/Splitter.svelte";
+
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+---
+
+<StarlightPage frontmatter={{ title: "Bill Splitter" }}>
+  <Splitter client:load />
+</StarlightPage>

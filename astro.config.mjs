@@ -3,6 +3,7 @@ import starlight from "@astrojs/starlight";
 import tailwind from "@astrojs/tailwind";
 import starlightThemeRapide from "starlight-theme-rapide";
 import svelte from "@astrojs/svelte";
+import mdx from '@astrojs/mdx';
 // https://astro.build/config
 export default defineConfig({
   site: "https://evotianusx.github.io",
@@ -10,7 +11,8 @@ export default defineConfig({
     service: passthroughImageService(),
   },
   integrations: [
-    svelte(),
+
+    svelte({ extensions: ['.svelte'] }),
     starlight({
       title: "Evotianus Page",
       plugins: [starlightThemeRapide()],
@@ -59,13 +61,14 @@ export default defineConfig({
     tailwind({
       // Disable the default base styles:
       applyBaseStyles: false,
-    }),
+    }), mdx(),
   ],
   vite: {
-    build: {
-      rollupOptions: {
-        external: ["svelte"],
-      },
+    ssr: {
+      noExternal: ['svelte', '@astrojs/svelte'], // Or any other problematic dependencies
     },
+
+
   },
 });
+
