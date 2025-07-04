@@ -2,14 +2,16 @@ import { defineConfig, passthroughImageService } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import tailwind from "@astrojs/tailwind";
 import starlightThemeRapide from 'starlight-theme-rapide'
-
+import svelte from '@astrojs/svelte';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://evotianusx.github.io',
   image: {
     service: passthroughImageService(),
   },
-  integrations: [starlight({
+  integrations: [
+    svelte(),
+    starlight({
     title: 'Evotianus Page',
     plugins: [starlightThemeRapide()],
     head: [{
@@ -42,6 +44,11 @@ export default defineConfig({
       label: 'Projects',
       autogenerate: {
         directory: 'projects'
+      }
+    },{
+      label:"Tools",
+      autogenerate:{
+        directory:'tools'
       }
     }]
   }), tailwind({
