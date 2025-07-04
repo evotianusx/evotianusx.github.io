@@ -237,34 +237,34 @@
             <div>
               {item.name}
               ({item.owners.length > 1
-                ? `$${item.price.toFixed(2)} ÷ ${item.owners.length} = $${(item.price / item.owners.length).toFixed(2)}`
-                : `$${item.price.toFixed(2)}`})
+                ? `Rp ${item.price.toFixed(2)} ÷ ${item.owners.length} = Rp ${(item.price / item.owners.length).toFixed(2)}`
+                : `Rp ${item.price.toFixed(2)}`})
             </div>
           {/each}
         </div>
-        <div>IDR {formatCurrency(participantSummary.subtotal)}</div>
-        <div>IDR {formatCurrency(participantSummary.tax)}</div>
-        <div>IDR {formatCurrency(participantSummary.total)}</div>
+        <div>Rp {formatCurrency(participantSummary.subtotal)}</div>
+        <div>Rp {formatCurrency(participantSummary.tax)}</div>
+        <div>Rp {formatCurrency(participantSummary.total)}</div>
       {/each}
 
       <!-- Totals Row -->
       <div class="summary-total-label">Subtotal:</div>
       <div></div>
-      <div>IDR {formatCurrency(subtotal)}</div>
+      <div>Rp {formatCurrency(subtotal)}</div>
       <div></div>
       <div></div>
 
       <div class="summary-total-label">Tax ({taxRate * 100}%):</div>
       <div></div>
       <div></div>
-      <div>IDR {formatCurrency(taxTotal)}</div>
+      <div>Rp {formatCurrency(taxTotal)}</div>
       <div></div>
 
       <div class="summary-total-label">Grand Total:</div>
       <div></div>
       <div></div>
       <div></div>
-      <div>IDR {formatCurrency(grandTotal)}</div>
+      <div>Rp {formatCurrency(grandTotal)}</div>
     </div>
   </div>
 </div>
