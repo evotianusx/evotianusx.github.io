@@ -9,4 +9,4 @@ sidebar:
 
 ## Collection of small tools I built
 
-* 
+*  [Bill Splitter](/split)
