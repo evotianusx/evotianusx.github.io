@@ -19,7 +19,7 @@
 
   let participants = $state<string[]>(["Me"]);
   let newParticipant = $state<string>("");
-  const taxRate = $state<number>(0.1); // 10% tax
+  const taxRate = $state<number>(0.11); // 10% tax
 
   // Derived state
   const summary = $derived<ParticipantSummary[]>(
@@ -115,7 +115,7 @@
       // Calculate participant's share of tax (proportional to their subtotal)
       const taxShare = subtotal * taxRate;
       const total = subtotal + taxShare;
-   
+
       return {
         name: participant,
         items: participantItems,
@@ -143,8 +143,6 @@
 </script>
 
 <div class="receipt-splitter">
-  <h2>Receipt Splitter</h2>
-
   <!-- Participants Section -->
   <div class="section">
     <h3>Participants</h3>
