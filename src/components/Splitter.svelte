@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Button from "./Button.svelte";
+
   interface ParticipantSummary {
     name: string;
     items: ReceiptItem[];
@@ -140,6 +142,31 @@
       useGrouping: true, // This adds the commas
     });
   }
+  import { onMount } from "svelte";
+  import domtoimage from "dom-to-image";
+
+  let captureElement: HTMLElement;
+  let downloadLink = "";
+
+  async function captureDiv() {
+    if (!captureElement) return;
+
+    try {
+      const image = await domtoimage.toPng(captureElement);
+
+      // // Convert canvas to image and create download link
+      // const image = canvas.toDataURL("image/png");
+      downloadLink = image;
+
+      // Optional: Automatically download the image
+      const link = document.createElement("a");
+      link.download = "screenshot.png";
+      link.href = image;
+      link.click();
+    } catch (error) {
+      console.error("Error capturing div:", error);
+    }
+  }
 </script>
 
 <div class="receipt-splitter">
@@ -161,7 +188,7 @@
         placeholder="Add participant"
         onkeydown={(e) => e.key === "Enter" && addParticipant()}
       />
-      <button onclick={addParticipant}>Add</button>
+      <Button onclick={addParticipant}>Add</Button>
     </div>
   </div>
 
@@ -208,65 +235,293 @@
               </td>
             {/each}
             <td>
-              <button onclick={() => removeItem(item.id)}>Remove</button>
+              <Button onclick={() => removeItem(item.id)}>Remove</Button>
             </td>
           </tr>
         {/each}
       </tbody>
     </table>
-    <button onclick={addItem}>Add Item</button>
+    <Button onclick={addItem}>Add Item</Button>
   </div>
 
   <!-- Summary Section -->
-  <div class="section">
-    <h3>Summary</h3>
-    <div class="summary-grid">
-      <div class="summary-header">Participant</div>
-      <div class="summary-header">Items</div>
-      <div class="summary-header">Subtotal</div>
-      <div class="summary-header">Tax</div>
-      <div class="summary-header">Total</div>
+  <div class="receipt-splitter">
+    <div class="section" bind:this={captureElement}>
+      <h3>Payment Summary</h3>
 
-      {#each summary as participantSummary}
-        <div><h3>{participantSummary.name}</h3></div>
-        <div>
-          {#each participantSummary.items as item}
-            <div>
-              {item.name}
-              ({item.owners.length > 1
-                ? `Rp ${item.price.toFixed(2)} ÷ ${item.owners.length} = Rp ${(item.price / item.owners.length).toFixed(2)}`
-                : `Rp ${item.price.toFixed(2)}`})
+      <div class="table-wrapper">
+        <div class="summary-grid">
+          <!-- Header Row -->
+          <div class="summary-header">Participant</div>
+          <div class="summary-header">Items</div>
+          <div class="summary-header text-right">Subtotal</div>
+          <div class="summary-header text-right">Tax</div>
+          <div class="summary-header text-right">Total</div>
+
+          {#each summary as participantSummary}
+            <div class="participant-cell">
+              <div class="participant-avatar">
+                {participantSummary.name.charAt(0)}
+              </div>
+              {participantSummary.name}
+            </div>
+
+            <div class="items-cell">
+              {#each participantSummary.items as item}
+                <div class="item-row">
+                  <h4>{item.name}</h4>
+                </div>
+              {/each}
+            </div>
+
+            <div class="amount-cell text-right">
+              Items - Rp {formatCurrency(participantSummary.subtotal)}
+            </div>
+
+            <div class="amount-cell text-right">
+              Tax - Rp {formatCurrency(participantSummary.tax)}
+            </div>
+
+            <div class="amount-cell text-right font-medium">
+              Total - Rp {formatCurrency(participantSummary.total)}
             </div>
           {/each}
+
+          <!-- Totals Row -->
+          <div class="summary-total-label">Subtotal:</div>
+          <div></div>
+          <div class="amount-cell text-right">
+            Rp {formatCurrency(subtotal)}
+          </div>
+          <div></div>
+          <div></div>
+
+          <div class="summary-total-label">Tax ({taxRate * 100}%):</div>
+          <div></div>
+          <div></div>
+          <div class="amount-cell text-right">
+            Rp {formatCurrency(taxTotal)}
+          </div>
+          <div></div>
+
+          <div class="summary-total-label grand-total">Grand Total:</div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div class="amount-cell text-right grand-total">
+            Rp {formatCurrency(grandTotal)}
+          </div>
         </div>
-        <div>Rp {formatCurrency(participantSummary.subtotal)}</div>
-        <div>Rp {formatCurrency(participantSummary.tax)}</div>
-        <div>Rp {formatCurrency(participantSummary.total)}</div>
-      {/each}
+      </div>
 
-      <!-- Totals Row -->
-      <div class="summary-total-label">Subtotal:</div>
-      <div></div>
-      <div>Rp {formatCurrency(subtotal)}</div>
-      <div></div>
-      <div></div>
-
-      <div class="summary-total-label">Tax ({taxRate * 100}%):</div>
-      <div></div>
-      <div></div>
-      <div>Rp {formatCurrency(taxTotal)}</div>
-      <div></div>
-
-      <div class="summary-total-label">Grand Total:</div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div>Rp {formatCurrency(grandTotal)}</div>
+      <div class="Button-container">
+        <Button onclick={captureDiv}>Save Receipt</Button>
+      </div>
     </div>
   </div>
 </div>
 
 <style>
+  .receipt-splitter {
+    max-width: 90%;
+    margin: 0 auto;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: var(--section-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    font-size: 1.5rem;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1.5rem;
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .summary-header {
+    font-weight: bold;
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+    background-color: var(--table-header-bg);
+    display: none;
+  }
+
+  .participant-cell {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 500;
+    color: var(--text-color);
+  }
+
+  .participant-avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: var(--Button-bg);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.75rem;
+    font-weight: bold;
+  }
+
+  .participant-name {
+    color: var(--text-color);
+  }
+
+  .items-cell {
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .item-row {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .item-name {
+    color: var(--text-color);
+    font-weight: 500;
+  }
+
+  .item-details {
+    color: var(--text-color);
+    opacity: 0.8;
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+  }
+
+  .amount-cell {
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+  }
+
+  .total-cell {
+    font-weight: bold;
+    color: var(--text-color);
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .summary-total-label {
+    font-weight: bold;
+    padding: 0.75rem 0.5rem;
+    grid-column: 1;
+    color: var(--text-color);
+  }
+
+  .grand-total {
+    color: var(--Button-bg);
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  .Button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+  }
+
+  .confirm-Button {
+    padding: 0.75rem 1.5rem;
+    background: var(--Button-bg);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+  }
+
+  .confirm-Button:hover {
+    background: var(--Button-hover);
+  }
+
+  /* Dark mode specific adjustments */
+  :global(.dark-mode) .section {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  :global(.dark-mode) .item-details {
+    opacity: 0.7;
+  }
+
+  /* Medium screens (tablets) */
+  @media (min-width: 600px) {
+    .receipt-splitter {
+      max-width: 768px;
+      padding: 1.5rem;
+    }
+
+    .section {
+      padding: 1.5rem;
+    }
+
+    .summary-grid {
+      grid-template-columns: 2fr 3fr 1fr 1fr 1fr;
+    }
+
+    .summary-header {
+      display: block;
+    }
+
+    .summary-total-label {
+      grid-column: 1 / 3;
+    }
+
+    .item-row {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .item-details {
+      margin-top: 0;
+      margin-left: 0.5rem;
+    }
+  }
+
+  /* Large screens (desktops) */
+  @media (min-width: 1024px) {
+    .receipt-splitter {
+      max-width: 1000px;
+      padding: 2rem;
+    }
+
+    .section {
+      padding: 2rem;
+    }
+  }
+
   :root {
     /* Light mode colors */
     --bg-color: #ffffff;
@@ -274,8 +529,8 @@
     --section-bg: #f5f5f5;
     --tag-bg: #e0e0e0;
     --border-color: #dddddd;
-    --button-bg: #4caf50;
-    --button-hover: #45a049;
+    --Button-bg: #4caf50;
+    --Button-hover: #45a049;
     --table-header-bg: #e0e0e0;
     --input-bg: #ffffff;
     --input-text: #333333;
@@ -289,14 +544,13 @@
       --section-bg: #2d2d2d;
       --tag-bg: #3d3d3d;
       --border-color: #444444;
-      --button-bg: #388e3c;
-      --button-hover: #2e7d32;
+      --Button-bg: #388e3c;
+      --Button-hover: #2e7d32;
       --table-header-bg: #3d3d3d;
       --input-bg: #2d2d2d;
       --input-text: #f0f0f0;
     }
   }
-
   .dark-mode {
     /* Dark mode colors (for manual toggle) */
     --bg-color: #1a1a1a;
@@ -304,222 +558,10 @@
     --section-bg: #2d2d2d;
     --tag-bg: #3d3d3d;
     --border-color: #444444;
-    --button-bg: #388e3c;
-    --button-hover: #2e7d32;
+    --Button-bg: #388e3c;
+    --Button-hover: #2e7d32;
     --table-header-bg: #3d3d3d;
     --input-bg: #2d2d2d;
     --input-text: #f0f0f0;
-  }
-
-  .receipt-splitter {
-    /* Mobile-first: Use a percentage max-width for small screens */
-    max-width: 90%; /* Adjust as needed, e.g., 95% */
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    min-height: 100vh;
-    padding: 1rem; /* Base padding for smaller screens */
-    box-sizing: border-box; /* Ensure padding is included in width */
-  }
-
-  /* Medium screens (e.g., tablets) */
-  @media (min-width: 600px) {
-    .receipt-splitter {
-      max-width: 768px; /* Example max-width for tablets */
-      padding: 1.5rem; /* Increase padding for larger screens */
-    }
-  }
-
-  /* Larger screens (desktops) */
-  @media (min-width: 1024px) {
-    .receipt-splitter {
-      max-width: 1000px; /* Max-width for desktops */
-      padding: 2rem; /* Even more padding */
-    }
-  }
-
-  .section {
-    margin-bottom: 2rem;
-    padding: 1rem; /* Base padding */
-    background: var(--section-bg);
-    border-radius: 8px;
-  }
-
-  @media (min-width: 600px) {
-    .section {
-      padding: 1.5rem; /* Increase padding on larger screens */
-    }
-  }
-
-  h3 {
-    margin-top: 0;
-    color: var(--text-color);
-  }
-
-  .participant-list {
-    display: flex;
-    flex-wrap: wrap; /* Allow tags to wrap to the next line */
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .participant-tag {
-    background: var(--tag-bg);
-    padding: 0.3rem 0.6rem;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    color: var(--text-color);
-    /* Ensure tags don't shrink too much */
-    flex-shrink: 0;
-  }
-
-  .participant-tag button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    font-size: 1.1rem;
-    line-height: 1;
-    color: var(--text-color);
-  }
-
-  .add-participant {
-    display: flex;
-    flex-wrap: wrap; /* Allow items to wrap */
-    gap: 0.5rem;
-  }
-
-  /* Make input and button stack on small screens */
-  .add-participant input[type="text"] {
-    flex-grow: 1; /* Allow input to grow */
-    min-width: 150px; /* Ensure input has a minimum width before wrapping */
-  }
-
-  .add-participant button {
-    /* No specific width, let flexbox handle it, but allow it to wrap */
-    flex-shrink: 0;
-  }
-
-  /* Wrapper for tables to enable horizontal scrolling */
-  .table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-  }
-
-  table {
-    width: 100%; /* Important for tables inside overflow wrapper */
-    min-width: 600px; /* Ensure table has a minimum width if content is narrow */
-    border-collapse: collapse;
-    margin-bottom: 1rem;
-  }
-
-  th,
-  td {
-    padding: 0.5rem;
-    text-align: left;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-color);
-    font-size: 0.9rem; /* Adjust font size for mobile */
-  }
-
-  @media (min-width: 600px) {
-    th,
-    td {
-      padding: 0.75rem;
-      font-size: 1rem;
-    }
-  }
-
-  th {
-    background: var(--table-header-bg);
-  }
-
-  input[type="text"],
-  input[type="number"] {
-    padding: 0.3rem;
-    width: 100%; /* Ensure inputs take full width of their container */
-    box-sizing: border-box;
-    background-color: var(--input-bg);
-    color: var(--input-text);
-    border: 1px solid var(--border-color);
-    border-radius: 4px; /* Added for consistency */
-  }
-
-  /* Summary Grid - Mobile first (single column) */
-  .summary-grid {
-    display: grid;
-    grid-template-columns: 1fr; /* Single column on small screens */
-    gap: 0.5rem;
-  }
-
-  /* Summary Grid - Medium screens (two columns) */
-  @media (min-width: 480px) {
-    .summary-grid {
-      grid-template-columns: 1fr 1fr; /* Two columns */
-    }
-    .summary-total-label {
-      grid-column: 1 / 3; /* Total label spans both columns */
-    }
-  }
-
-  /* Summary Grid - Larger screens (original five columns) */
-  @media (min-width: 768px) {
-    .summary-grid {
-      grid-template-columns: 1fr 2fr 1fr 1fr 1fr; /* Original layout */
-    }
-    .summary-total-label {
-      grid-column: 1 / 3;
-    }
-  }
-
-  .summary-header {
-    font-weight: bold;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.5rem;
-  }
-
-  .summary-total-label {
-    font-weight: bold;
-    /* Grid column handled by media queries above */
-  }
-
-  button {
-    padding: 0.5rem 1rem; /* Slightly larger padding for better touch targets */
-    background: var(--button-bg);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    white-space: nowrap; /* Prevent button text from wrapping unexpectedly */
-  }
-
-  button:hover {
-    background: var(--button-hover);
-  }
-
-  /* Dark mode toggle button */
-  .dark-mode-toggle {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    background: var(--button-bg);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 0.5rem;
-    cursor: pointer;
-    z-index: 1000;
-  }
-
-  /* Small screen adjustments for buttons in .add-participant */
-  @media (max-width: 480px) {
-    .add-participant button {
-      width: 100%; /* Make button full width if it's the only one or needs to stack */
-      margin-top: 0.5rem; /* Add some spacing if it wraps below the input */
-    }
   }
 </style>
