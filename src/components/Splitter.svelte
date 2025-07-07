@@ -1,11 +1,11 @@
 <script lang="ts">
-  import Button from "./Button.svelte";
-
+  import Button from './Button.svelte'
   interface ParticipantSummary {
     name: string;
     items: ReceiptItem[];
     subtotal: number;
     tax: number;
+    service: number;
     total: number;
   }
   interface ReceiptItem {
@@ -21,7 +21,8 @@
 
   let participants = $state<string[]>(["Me"]);
   let newParticipant = $state<string>("");
-  const taxRate = $state<number>(0.11); // 10% tax
+  let taxRate = $state<number>(11); // 10% tax
+  let serviceRate = $state<number>(0.0);
 
   // Derived state
   const summary = $derived<ParticipantSummary[]>(
@@ -30,7 +31,8 @@
   const subtotal = $derived<number>(
     items.reduce((sum, item) => sum + item.price, 0),
   );
-  const taxTotal = $derived<number>(subtotal * taxRate);
+  const taxTotal = $derived<number>((subtotal * taxRate) / 100);
+  const serviceTotal = $derived<number>((subtotal * serviceRate) / 100);
   const grandTotal = $derived<number>(subtotal + taxTotal);
   const calculatedTotal = $derived<number>(
     summary.reduce((sum, participant) => sum + participant.total, 0),
@@ -115,7 +117,9 @@
       }, 0);
 
       // Calculate participant's share of tax (proportional to their subtotal)
-      const taxShare = subtotal * taxRate;
+      const taxShare = (subtotal * taxRate) / 100;
+      const serviceShare = (subtotal * serviceRate) / 100;
+
       const total = subtotal + taxShare;
 
       return {
@@ -123,6 +127,7 @@
         items: participantItems,
         subtotal: parseFloat(subtotal.toFixed(2)),
         tax: parseFloat(taxShare.toFixed(2)),
+        service: parseFloat(serviceShare.toFixed(2)),
         total: parseFloat(total.toFixed(2)),
       };
     });
@@ -160,7 +165,7 @@
 
       // Optional: Automatically download the image
       const link = document.createElement("a");
-      link.download = "screenshot.png";
+      link.download = "Receipt.png";
       link.href = image;
       link.click();
     } catch (error) {
@@ -177,7 +182,9 @@
       {#each participants as participant}
         <div class="participant-tag">
           {participant}
-          <button onclick={() => removeParticipant(participant)}>X</button>
+          <Button class="btn" onclick={() => removeParticipant(participant)}
+            >X</Button
+          >
         </div>
       {/each}
     </div>
@@ -243,80 +250,105 @@
     </table>
     <Button onclick={addItem}>Add Item</Button>
   </div>
+  <div class="section">
+    <h3>Settings</h3>
+    <br />
+    <span>Tax</span>
+    <input type="number" bind:value={taxRate} max="100" min="0" />
 
+    <span>Service Charge</span>
+    <input type="number" bind:value={serviceRate} max="100" min="0" />
+  </div>
   <!-- Summary Section -->
-  <div class="receipt-splitter">
-    <div class="section" bind:this={captureElement}>
-      <h3>Payment Summary</h3>
 
-      <div class="table-wrapper">
-        <div class="summary-grid">
-          <!-- Header Row -->
-          <div class="summary-header">Participant</div>
-          <div class="summary-header">Items</div>
-          <div class="summary-header text-right">Subtotal</div>
-          <div class="summary-header text-right">Tax</div>
-          <div class="summary-header text-right">Total</div>
+  <div class="section" bind:this={captureElement}>
+    <h3>Payment Summary</h3>
 
-          {#each summary as participantSummary}
-            <div class="participant-cell">
-              <div class="participant-avatar">
-                {participantSummary.name.charAt(0)}
+    <div class="table-wrapper">
+      <div class="summary-grid">
+        <!-- Header Row -->
+        <div class="summary-header">Participant</div>
+        <div class="summary-header">Items</div>
+        <div class="summary-header text-right">Subtotal</div>
+        <div class="summary-header text-right">Tax</div>
+
+        <div class="summary-header text-right">Service Charge</div>
+        <div class="summary-header text-right">Total</div>
+
+        {#each summary as participantSummary}
+          <div class="participant-cell">
+            <div class="participant-avatar">
+              {participantSummary.name.charAt(0)}
+            </div>
+            {participantSummary.name}
+          </div>
+
+          <div class="items-cell">
+            {#each participantSummary.items as item}
+              <div class="item-row">
+                <h4>{item.name}</h4>
               </div>
-              {participantSummary.name}
-            </div>
+            {/each}
+          </div>
 
-            <div class="items-cell">
-              {#each participantSummary.items as item}
-                <div class="item-row">
-                  <h4>{item.name}</h4>
-                </div>
-              {/each}
-            </div>
-
-            <div class="amount-cell text-right">
-              Items - Rp {formatCurrency(participantSummary.subtotal)}
-            </div>
-
-            <div class="amount-cell text-right">
-              Tax - Rp {formatCurrency(participantSummary.tax)}
-            </div>
-
-            <div class="amount-cell text-right font-medium">
-              Total - Rp {formatCurrency(participantSummary.total)}
-            </div>
-          {/each}
-
-          <!-- Totals Row -->
-          <div class="summary-total-label">Subtotal:</div>
-          <div></div>
           <div class="amount-cell text-right">
-            Rp {formatCurrency(subtotal)}
+            Items - Rp {formatCurrency(participantSummary.subtotal)}
           </div>
-          <div></div>
-          <div></div>
 
-          <div class="summary-total-label">Tax ({taxRate * 100}%):</div>
-          <div></div>
-          <div></div>
           <div class="amount-cell text-right">
-            Rp {formatCurrency(taxTotal)}
+            Tax - Rp {formatCurrency(participantSummary.tax)}
           </div>
-          <div></div>
 
-          <div class="summary-total-label grand-total">Grand Total:</div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div class="amount-cell text-right grand-total">
-            Rp {formatCurrency(grandTotal)}
+          <div class="amount-cell text-right">
+            Service - Rp {formatCurrency(participantSummary.service)}
           </div>
+
+          <div class="amount-cell text-right font-medium">
+            Total - Rp {formatCurrency(participantSummary.total)}
+          </div>
+        {/each}
+
+        <!-- Totals Row -->
+        <div class="summary-total-label">Subtotal:</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div class="amount-cell text-right">
+          Rp {formatCurrency(subtotal)}
+        </div>
+        <div></div>
+        <div></div>
+
+        <div class="summary-total-label">Tax ({taxRate}%):</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div class="amount-cell text-right">
+          Rp {formatCurrency(taxTotal)}
+        </div>
+        <div></div>
+
+        <div class="summary-total-label">Service ({serviceRate}%):</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div class="amount-cell text-right">
+          Rp {formatCurrency(serviceTotal)}
+        </div>
+        <div></div>
+
+        <div class="summary-total-label grand-total">Grand Total:</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div class="amount-cell text-right grand-total">
+          Rp {formatCurrency(grandTotal)}
         </div>
       </div>
+    </div>
 
-      <div class="Button-container">
-        <Button onclick={captureDiv}>Save Receipt</Button>
-      </div>
+    <div class="Button-container">
+      <Button onclick={captureDiv}>Save Receipt</Button>
     </div>
   </div>
 </div>
@@ -488,7 +520,7 @@
     }
 
     .summary-grid {
-      grid-template-columns: 2fr 3fr 1fr 1fr 1fr;
+      grid-template-columns: 2fr 3fr 1fr 1fr 1fr 1fr;
     }
 
     .summary-header {
