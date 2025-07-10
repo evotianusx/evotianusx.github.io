@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Button from './Button.svelte'
+  import Button from "./Button.svelte";
   interface ParticipantSummary {
     name: string;
     items: ReceiptItem[];
@@ -33,7 +33,7 @@
   );
   const taxTotal = $derived<number>((subtotal * taxRate) / 100);
   const serviceTotal = $derived<number>((subtotal * serviceRate) / 100);
-  const grandTotal = $derived<number>(subtotal + taxTotal);
+  const grandTotal = $derived<number>(subtotal + taxTotal + serviceTotal);
   const calculatedTotal = $derived<number>(
     summary.reduce((sum, participant) => sum + participant.total, 0),
   );
@@ -182,8 +182,10 @@
       {#each participants as participant}
         <div class="participant-tag">
           {participant}
-          <Button class="btn" onclick={() => removeParticipant(participant)}
-            >X</Button
+          <Button
+            variant="secondary"
+            class="btn"
+            onclick={() => removeParticipant(participant)}>X</Button
           >
         </div>
       {/each}
@@ -195,7 +197,7 @@
         placeholder="Add participant"
         onkeydown={(e) => e.key === "Enter" && addParticipant()}
       />
-      <Button onclick={addParticipant}>Add</Button>
+      <Button variant="secondary" onclick={addParticipant}>Add</Button>
     </div>
   </div>
 
@@ -242,22 +244,32 @@
               </td>
             {/each}
             <td>
-              <Button onclick={() => removeItem(item.id)}>Remove</Button>
+              <Button variant="secondary" onclick={() => removeItem(item.id)}
+                >Remove</Button
+              >
             </td>
           </tr>
         {/each}
       </tbody>
     </table>
-    <Button onclick={addItem}>Add Item</Button>
+    <Button variant="secondary" onclick={addItem}>Add Item</Button>
   </div>
   <div class="section">
     <h3>Settings</h3>
     <br />
     <span>Tax</span>
     <input type="number" bind:value={taxRate} max="100" min="0" />
-
+    <br />
     <span>Service Charge</span>
-    <input type="number" bind:value={serviceRate} max="100" min="0" />
+    <input
+      type="number"
+      bind:value={serviceRate}
+      max="100"
+      min="0"
+      onclick={() => {
+        serviceRate = null;
+      }}
+    />
   </div>
   <!-- Summary Section -->
 
@@ -348,7 +360,7 @@
     </div>
 
     <div class="Button-container">
-      <Button onclick={captureDiv}>Save Receipt</Button>
+      <Button variant="secondary" onclick={captureDiv}>Save Receipt</Button>
     </div>
   </div>
 </div>
