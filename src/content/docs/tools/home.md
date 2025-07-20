@@ -10,3 +10,7 @@ sidebar:
 ## Collection of small tools I built
 
 *  [Bill Splitter](/split)
+  
+## Game
+
+*  [Find Files](/folder)
