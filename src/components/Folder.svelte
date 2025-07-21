@@ -236,9 +236,9 @@
             </div>
         {/if}
 
-        <h1 class="text-3xl font-bold text-gray-800 mb-2">
+        <!-- <h1 class="text-3xl font-bold text-gray-800 mb-2">
             Find the Department File!
-        </h1>
+        </h1> -->
 
         <!-- Target -->
 
