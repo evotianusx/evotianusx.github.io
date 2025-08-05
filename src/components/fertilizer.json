@@ -1,0 +1,283 @@
+[
+    {
+        "id": 1,
+        "name": "KARATE PLUS BORONI",
+        "N": 15.5,
+        "K2O": 26,
+        "B": 0.3,
+        "note": "MAJEMUK"
+    },
+    {
+        "id": 2,
+        "name": "MEROKE CALNIT",
+        "N": 15.5,
+        "CaO": 26,
+        "note": "WATER SOLLUBLE"
+    },
+    {
+        "id": 3,
+        "name": "MEROKE CPN",
+        "N": 15,
+        "K2O": 26,
+        "note": "MAJEMUK"
+    },
+    {
+        "id": 4,
+        "name": "MEROKE FITOFLEX - MIKRO MAJEMUK",
+        "B": 2,
+        "Zn": 5,
+        "Fe": 2.5,
+        "Cu": 2,
+        "Mn": 7,
+        "Mo": 0.1,
+        "note": "FOLIAR"
+    },
+    {
+        "id": 5,
+        "name": "MEROKE FOSFAT",
+        "P2O5": 24,
+        "K2O": 34,
+        "note": "MAJEMUK"
+    },
+    {
+        "id": 6,
+        "name": "MEROKE KALINITRA",
+        "N": 13,
+        "K2O": 46,
+        "note": "WATER SOLLUBLE"
+    },
+    {
+        "id": 7,
+        "name": "MEROKE KKB",
+        "K2O": 40,
+        "B": 0.8,
+        "note": "MAJEMUK"
+    },
+    {
+        "id": 8,
+        "name": "MEROKE MAG-S",
+        "MgO": 16,
+        "S": 13,
+        "note": "WATER SOLLUBLE"
+    },
+    {
+        "id": 9,
+        "name": "MEROKE MAP",
+        "N": 12,
+        "P2O5": 61,
+        "note": "WATER SOLLUBLE"
+    },
+    {
+        "id": 10,
+        "name": "MEROKE MIKRO Cu",
+        "Cu": 15,
+        "note": "WATER SOLLUBLE"
+    },
+    {
+        "id": 11,
+        "name": "MEROKE MIKRO Fe 13",
+        "Fe": 13,
+        "note": "WATER SOLLUBLE"
+    },
+    {
+        "id": 12,
+        "name": "MEROKE MIKRO Fe 6",
+        "Fe": 6,
+        "note": "WATER SOLLUBLE"
+    },
+    {
+        "id": 13,
+        "name": "MEROKE MIKRO Mn",
+        "Mn": 13,
+        "note": "WATER SOLLUBLE"
+    },
+    {
+        "id": 14,
+        "name": "MEROKE MIKRO Zn",
+        "N": 12,
+        "Zn": 15,
+        "note": "WATER SOLLUBLE"
+    },
+    {
+        "id": 15,
+        "name": "MEROKE MKP",
+        "P2O5": 52,
+        "K2O": 34,
+        "note": "WATER SOLLUBLE"
+    },
+    {
+        "id": 16,
+        "name": "MEROKE MOP",
+        "K2O": 60,
+        "note": "TUNGGAL"
+    },
+    {
+        "id": 17,
+        "name": "MEROKE ROCK",
+        "P2O5": 27,
+        "note": "TUNGGAL"
+    },
+    {
+        "id": 18,
+        "name": "MEROKE SOP",
+        "K2O": 52,
+        "S": 17,
+        "note": "WATER SOLLUBLE"
+    },
+    {
+        "id": 19,
+        "name": "MEROKE TSP",
+        "P2O5": 46,
+        "note": "TUNGGAL"
+    },
+    {
+        "id": 20,
+        "name": "MEROKE VITAFLEX",
+        "B": 1,
+        "Zn": 1.65,
+        "Fe": 7.5,
+        "Cu": 1.6,
+        "Mn": 1.5,
+        "Mo": 0.25,
+        "note": "WATER SOLLUBLE"
+    },
+    {
+        "id": 21,
+        "name": "MEROKE ZA",
+        "N": 21,
+        "S": 24,
+        "note": "TUNGGAL"
+    },
+    {
+        "id": 22,
+        "name": "MUTIARA GROWER",
+        "N": 15,
+        "P2O5": 9,
+        "K2O": 20,
+        "MgO": 2,
+        "S": 2,
+        "B": 0.015,
+        "Zn": 0.02,
+        "Mn": 0.02,
+        "note": "MAJEMUK"
+    },
+    {
+        "id": 23,
+        "name": "NPK MUTIARA",
+        "N": 16,
+        "P2O5": 16,
+        "K2O": 16,
+        "note": "MAJEMUK"
+    },
+    {
+        "id": 24,
+        "name": "NPK MUTIARA PARTNER",
+        "N": 13,
+        "P2O5": 13,
+        "K2O": 24,
+        "note": "MAJEMUK"
+    },
+    {
+        "id": 25,
+        "name": "NPK MUTIARA SPRINTER",
+        "N": 20,
+        "P2O5": 10,
+        "K2O": 10,
+        "note": "MAJEMUK"
+    },
+    {
+        "id": 26,
+        "name": "NPK PROFESIONAL",
+        "N": 9,
+        "P2O5": 25,
+        "K2O": 25,
+        "note": "MAJEMUK"
+    },
+    {
+        "id": 27,
+        "name": "PROVIT HIJAU",
+        "N": 27,
+        "P2O5": 18,
+        "K2O": 9,
+        "MgO": 1,
+        "B": 0.01,
+        "Zn": 0.01,
+        "Fe": 0.11,
+        "Cu": 0.02,
+        "Mn": 0.04,
+        "Mo": 0.02,
+        "note": "FOLIAR"
+    },
+    {
+        "id": 28,
+        "name": "PROVIT MAXI",
+        "N": 6,
+        "P2O5": 27,
+        "K2O": 38,
+        "B": 0.2,
+        "Mn": 0.19,
+        "Mo": 0.02,
+        "note": "FOLIAR"
+    },
+    {
+        "id": 29,
+        "name": "PROVIT MERAH",
+        "N": 15,
+        "P2O5": 30,
+        "K2O": 15,
+        "MgO": 1.4,
+        "B": 0.04,
+        "Zn": 0.06,
+        "Fe": 0.13,
+        "Cu": 0.06,
+        "Mn": 0.02,
+        "Mo": 0.01,
+        "note": "FOLIAR"
+    },
+    {
+        "id": 30,
+        "name": "PROVIT ORANGE",
+        "N": 8,
+        "P2O5": 9,
+        "K2O": 39,
+        "MgO": 3,
+        "S": 4,
+        "B": 0.029,
+        "Zn": 0.032,
+        "Fe": 0.14,
+        "Cu": 0.006,
+        "Mn": 0.05,
+        "Mo": 0.005,
+        "note": "FOLIAR"
+    },
+    {
+        "id": 31,
+        "name": "SOLUMAG",
+        "MgO": 27,
+        "S": 20,
+        "note": "TUNGGAL"
+    },
+    {
+        "id": 32,
+        "name": "SOLUMAG G",
+        "MgO": 27,
+        "S": 17,
+        "note": "TUNGGAL"
+    },
+    {
+        "id": 33,
+        "name": "SS (AMMOPHOS)",
+        "N": 16,
+        "P2O5": 20,
+        "S": 12,
+        "note": "MAJEMUK"
+    },
+    {
+        "id": 34,
+        "name": "SUBURKALI",
+        "K2O": 30,
+        "MgO": 10,
+        "S": 17,
+        "note": "TUNGGAL"
+    }
+]

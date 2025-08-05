@@ -10,6 +10,7 @@ sidebar:
 ## Collection of small tools I built
 
 *  [Bill Splitter](/split)
+*  [Fertilizer](/fertilizer)
   
 ## Game
 

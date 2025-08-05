@@ -1,0 +1,10 @@
+---
+import Fertilizer from "../components/Fertilizer.svelte";
+
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+---
+
+<StarlightPage frontmatter={{ title: "Fertilizer Calculator" }}>
+  Also my resume is <a href="/resume">here</a>
+  <Fertilizer client:load />
+</StarlightPage>
