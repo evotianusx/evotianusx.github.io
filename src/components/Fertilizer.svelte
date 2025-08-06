@@ -260,7 +260,7 @@
             {#each Object.entries(nutrientNeeds) as [nutrient, need]}
                 <div class="nutrient-item">
                     <strong>{nutrient}:</strong>
-                    {(need * fruitYield).toFixed(3)} kg
+                    {need.toFixed(3)} kg
                 </div>
             {/each}
         </div>

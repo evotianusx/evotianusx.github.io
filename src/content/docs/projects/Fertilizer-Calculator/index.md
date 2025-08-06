@@ -3,9 +3,7 @@ title: "Fertilizer Calculator: A Deep Dive"
 description: "An overview of the features, development, and future of the smart fertilizer calculator."
 ---
 
-# Fertilizer Calculator: A Deep Dive
-
-This article provides a comprehensive overview of the Fertilizer Calculator, a smart tool designed to help farmers and gardeners optimize their fertilizer usage for better crop yields.
+This article provides a comprehensive overview of the **Fertilizer Calculator**, a smart tool designed to help farmers and gardeners optimize their fertilizer usage for better crop yields.
 
 ## Background
 
@@ -19,20 +17,20 @@ While this calculator uses a simplified model for efficiency, it highlights the 
 
 The calculator is built with a focus on scientific accuracy and user-friendliness.
 
--   **Nutrient Requirement Calculation**: Determines the precise nutrient needs based on fruit yield and established scientific data.
--   **Fertilizer Dose Calculation**: Calculates the exact amount of each fertilizer required per application.
--   **Real-time Recalculation**: All calculations update instantly as you adjust inputs like fruit yield or application frequency.
--   **Insufficient Nutrient Detection**: If the selected fertilizers don't meet the crop's needs, the tool alerts you and provides actionable advice.
--   **Smart Suggestions**: To address nutrient gaps, the calculator intelligently recommends additional fertilizers.
+- **Nutrient Requirement Calculation**: Determines the precise nutrient needs based on fruit yield and established scientific data.
+- **Fertilizer Dose Calculation**: Calculates the exact amount of each fertilizer required per application.
+- **Real-time Recalculation**: All calculations update instantly as you adjust inputs like fruit yield or application frequency.
+- **Insufficient Nutrient Detection**: If the selected fertilizers don't meet the crop's needs, the tool alerts you and provides actionable advice.
+- **Smart Suggestions**: To address nutrient gaps, the calculator intelligently recommends additional fertilizers.
 
 ## User Interface
 
 The user interface is designed to be intuitive and efficient.
 
--   **Interactive Inputs**: Sliders and input fields for fruit yield and application frequency allow for dynamic recalculations.
--   **Chip-based Selection**: A modern, easy-to-use chip interface for selecting fertilizers.
--   **Visual Feedback**: Clear color-coding and a responsive design provide at-a-glance information about nutrient levels.
--   **Comprehensive Results**: The tool presents a detailed breakdown of nutrient requirements and a clear fertilizer application plan.
+- **Interactive Inputs**: Sliders and input fields for fruit yield and application frequency allow for dynamic recalculations.
+- **Chip-based Selection**: A modern, easy-to-use chip interface for selecting fertilizers.
+- **Visual Feedback**: Clear color-coding and a responsive design provide at-a-glance information about nutrient levels.
+- **Comprehensive Results**: The tool presents a detailed breakdown of nutrient requirements and a clear fertilizer application plan.
 
 ## The Development Journey
 
@@ -58,46 +56,46 @@ The final phase focused on refining the user experience. The layout was optimize
 
 The application is built with a modern, reactive technology stack:
 
--   **Svelte**: A reactive frontend framework for building fast and efficient user interfaces.
--   **TypeScript**: For type-safe JavaScript, ensuring code quality and maintainability.
--   **CSS3**: Modern styling with Flexbox and Grid for a responsive and flexible layout.
--   **JSON**: Used for storing the fertilizer database.
+- **Svelte**: A reactive frontend framework for building fast and efficient user interfaces.
+- **TypeScript**: For type-safe JavaScript, ensuring code quality and maintainability.
+- **CSS3**: Modern styling with Flexbox and Grid for a responsive and flexible layout.
+- **JSON**: Used for storing the fertilizer database.
 
 ## Future Roadmap
 
 The future of the Fertilizer Calculator is exciting, with many potential improvements planned across several categories.
 
-### 1. Enhanced User Experience
+### 1. Enhancing the User Experience
 
--   [ ] **Save/Load Presets**: Allow users to save fertilizer combinations for different crops.
--   [ ] **Unit Conversion**: Support for different measurement units (lbs, acres, etc.).
--   [ ] **Seasonal Planning**: Visual timeline showing application timing.
--   [ ] **Cost Calculator**: Estimate total fertilizer costs based on local prices.
+- [ ] **Save/Load Presets**: Allow users to save fertilizer combinations for different crops.
+- [ ] **Unit Conversion**: Support for different measurement units (lbs, acres, etc.).
+- [ ] **Seasonal Planning**: Visual timeline showing application timing.
+- [ ] **Cost Calculator**: Estimate total fertilizer costs based on local prices.
 
-### 2. Advanced Analytics
+### 2. Adding Advanced Analytics
 
--   [ ] **Nutrient Ratio Analysis**: Check if NPK ratios are optimal for fruit development.
--   [ ] **Soil Deficiency Profiler**: Compare with common soil deficiency patterns.
--   [ ] **Yield Projection**: Estimate potential yield based on nutrient plan.
--   [ ] **Environmental Impact**: Calculate carbon footprint of fertilizer use.
+- [ ] **Nutrient Ratio Analysis**: Check if NPK ratios are optimal for fruit development.
+- [ ] **Soil Deficiency Profiler**: Compare with common soil deficiency patterns.
+- [ ] **Yield Projection**: Estimate potential yield based on nutrient plan.
+- [ ] **Environmental Impact**: Calculate carbon footprint of fertilizer use.
 
-### 3. Data Management
+### 3. Improving Data Management
 
--   [ ] **Custom Fertilizer Database**: Allow users to add their own fertilizer formulations.
--   [ ] **Export Options**: PDF, Excel, and CSV export for record keeping.
--   [ ] **Batch Processing**: Calculate for multiple trees/areas at once.
--   [ ] **History Tracking**: Save calculation history for future reference.
+- [ ] **Custom Fertilizer Database**: Allow users to add their own fertilizer formulations.
+- [ ] **Export Options**: PDF, Excel, and CSV export for record keeping.
+- [ ] **Batch Processing**: Calculate for multiple trees/areas at once.
+- [ ] **History Tracking**: Save calculation history for future reference.
 
-### 4. Educational Features
+### 4. Building Educational Features
 
--   [ ] **Nutrient Information**: Popups with information about each nutrient's role.
--   [ ] **Best Practices Guide**: Tips for application timing and methods.
--   [ ] **Crop-specific Recommendations**: Pre-loaded data for different fruit types.
--   [ ] **Deficiency Symptoms**: Visual guide to nutrient deficiency signs.
+- [ ] **Nutrient Information**: Popups with information about each nutrient's role.
+- [ ] **Best Practices Guide**: Tips for application timing and methods.
+- [ ] **Crop-specific Recommendations**: Pre-loaded data for different fruit types.
+- [ ] **Deficiency Symptoms**: Visual guide to nutrient deficiency signs.
 
-### 5. Technical Enhancements
+### 5. Making Technical Enhancements
 
--   [ ] **Offline Support**: PWA capabilities for field use.
--   [ ] **Mobile Optimization**: Dedicated mobile app interface.
--   [ ] **Multi-language Support**: Localize for different regions.
--   [ ] **API Integration**: Connect to agricultural databases.
+- [ ] **Offline Support**: PWA capabilities for field use.
+- [ ] **Mobile Optimization**: Dedicated mobile app interface.
+- [ ] **Multi-language Support**: Localize for different regions.
+- [ ] **API Integration**: Connect to agricultural databases.
