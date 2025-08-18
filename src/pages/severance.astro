@@ -1,0 +1,15 @@
+---
+import Severance from "../components/Severance.svelte";
+
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+---
+
+<StarlightPage frontmatter={{ title: "Severance Calculator" }}>
+    Also my resume is <a href="/resume">here</a>
+    <br />
+    Assumed these <a
+        href="https://www.online-pajak.com/seputar-pph21/pajak-pesangon"
+        >rules
+    </a>
+    <Severance client:load />
+</StarlightPage>

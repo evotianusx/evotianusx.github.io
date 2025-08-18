@@ -9,7 +9,8 @@ sidebar:
 
 ## Collection of small tools I built
 
-*  [Bill Splitter](/split)
+*  [Bill Splitter](/split) 
+*  [Pesangon Calculator ](/severance)
 *  [Fertilizer](/fertilizer)
   
 ## Game
