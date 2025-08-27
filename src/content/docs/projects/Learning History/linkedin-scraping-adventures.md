@@ -76,19 +76,13 @@ In my case, this project is primarily an exercise in technical learning. The lon
 Here’s a possible milestone-based roadmap for turning this experiment into a more complete tutorial:
 
 Milestone	Goal	Tools / Notes
-1. Basic Scraper	Launch Chrome, load LinkedIn, and parse job listings.	Selenium + BeautifulSoup
-2. Data Extraction	Extract relevant job details (title, poster, date).	XPath / CSS selectors
+1. ~~Basic Scraper	Launch Chrome, load LinkedIn, and parse job listings.	Selenium + BeautifulSoup~~
+2. ~~Data Extraction	Extract relevant job details (title, poster, date).	XPath / CSS selectors~~
 3. Storage	Save posts into CSV/JSON for persistence.	pandas or built-in csv
 4. Application Tracking	Mark which posts I’ve already applied to.	Add status column in CSV/Sheets
-5. Sheets Integration	Push data into Google Sheets for real-time tracking.	gspread / Google Sheets API
-6. Automation Refinement	Experiment with stealthier drivers and better session management.	`undetectable-ChromeDriver`
-## Final Thoughts
+5. ~~Sheets Integration	Push data into Google Sheets for real-time tracking.	gspread / Google Sheets API~~. Manual for now
+6. ~~Automation Refinement	Experiment with stealthier drivers and better session management.	`undetectable-ChromeDriver`~~. DONE
 
-What began as a “simple” project to streamline job hunting became an unexpected deep dive into the realities of modern web automation. While I haven’t yet achieved a fully functioning system, the lessons along the way—about browsers, sessions, authentication, and platform defenses—have been invaluable.
-
-The story isn’t over. The next chapter will focus on refining the approach, experimenting with stealthier automation tools, and ultimately integrating the results into a structured application-tracking pipeline.
-
-Until then, the adventure continues.
 ## Final Code
 
 ```python
@@ -164,3 +158,42 @@ time.sleep(2)
 soup = BeautifulSoup(driver.page_source, "html.parser")
 print("Title:", soup.title.get_text(strip=True) if soup.title else "(no title)")
 ```
+
+## Update
+
+### Using undetectable-chromedriver
+
+Extracting Structured Data with GPT-5
+
+Once I had a stable browser session and could reliably fetch the HTML source, the next challenge was making sense of the data. LinkedIn posts are wrapped in deeply nested markup, and manually untangling it was tedious.
+
+Here’s where GPT-5 came in handy: I used it to help me map the raw HTML elements into a structured format. With its assistance, I extracted key fields like post ID, author details, job role, and engagement metrics into a tabular format that looks like this:
+
+| post_id             | author_name  | author_headline                        | date_label | date_iso_guess      | job_position_guess                   | content                                                | likes | comments | reposts | timestamp                        |
+| ------------------- | ------------ | -------------------------------------- | ---------- | ------------------- | ------------------------------------ | ------------------------------------------------------ | ----- | -------- | ------- | -------------------------------- |
+| 7363923075957956608 | James Dryden | Principal Consultant at Hydrogen Group | 5d         | 2025-08-21T18:59:04 | Data Engineer (GCP/Python) — UK ONLY | 🚀 Contract Opportunity – Data Engineer (GCP/Python)... | 10    | 1.0      | 2.0     | 2025-08-26 11:59:04.894450+00:00 |
+| 7365991455921762305 | Unnati Kumar | Senior Talent Acquisition Specialist   | 5h         | 2025-08-26T13:59:04 | Contract Role (Remote)               | 🚀 We’re Hiring! Remote – Contract Role 🚀 Looking...    | 10    | 2.0      | NaN     | 2025-08-26 11:59:04.897465+00:00 |
+|                     |              |                                        |            |                     |                                      |                                                        |       |          |         |                                  |
+
+With this structure in place, it becomes straightforward to:
+
+* Save results into CSV/JSON.
+
+* Push them into Google Sheets for real-time tracking.
+
+* Add logic to check whether I’ve already applied to a given post.
+
+## Final Thoughts
+
+What began as a “simple” project to streamline job hunting became an unexpected deep dive into the realities of modern web automation. While I haven’t yet achieved a fully functioning system, the lessons along the way—about browsers, sessions, authentication, and platform defenses—have been invaluable.
+
+The story isn’t over. The next chapter will focus on refining the approach, experimenting with stealthier automation tools, and ultimately integrating the results into a structured application-tracking pipeline.
+
+Until then, the adventure continues.
+
+But I think I can just go to linked in everyday, 
+1. scroll down a few pages down
+2. Save as HTML
+3. Run BS4 parser
+4. Form the table above
+
