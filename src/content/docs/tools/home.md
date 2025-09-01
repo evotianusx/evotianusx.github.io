@@ -12,6 +12,7 @@ sidebar:
 *  [Bill Splitter](/split) 
 *  [Pesangon Calculator ](/severance)
 *  [Fertilizer](/fertilizer)
+*  [Resume Chat Bot](/chat)
   
 ## Game
 
