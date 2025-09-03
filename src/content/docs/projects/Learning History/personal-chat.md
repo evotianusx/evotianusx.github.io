@@ -22,7 +22,7 @@ online, answers career-related questions in real time, and even learns
 from what it cannot answer yet.
 
 You can try it live on my website: 👉
-[evotianusx.github.io/resume](https://evotianusx.github.io/chat)
+[evotianusx.github.io/chat](https://evotianusx.github.io/chat)
 
 ------------------------------------------------------------------------
 ## Setup
@@ -110,7 +110,7 @@ Once deployed, it's live at:
 👉 `https://huggingface.co/spaces/<username>/<space-name>`
 
 Mine lives here:
-[evotianusx/resume-agent](https://huggingface.co/spaces/evotianusx/evo_resume_chat).
+[evotianusx/evo_resume_chat](https://huggingface.co/spaces/evotianusx/evo_resume_chat).
 
 Embedding it into my website was as simple as dropping an iframe.
 
