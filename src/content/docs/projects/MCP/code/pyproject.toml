@@ -1,0 +1,16 @@
+[project]
+name = "agents"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.116.1",
+    "fastmcp>=2.12.3",
+    "gradio>=5.44.1",
+    "mcp[cli]>=1.13.1",
+    "openai>=1.107.0",
+    "openai-agents>=0.2.11",
+    "psutil>=7.0.0",
+    "uvicorn>=0.35.0",
+]

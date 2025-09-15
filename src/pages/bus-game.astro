@@ -1,0 +1,63 @@
+---
+import Game from "../components/bus-game/Game.svelte";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Bus Routing Game</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+        background: #0e0f13;
+        color: #e9eef6;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Ubuntu,
+          Cantarell,
+          Noto Sans,
+          Helvetica Neue,
+          Arial;
+      }
+      main {
+        min-height: 100dvh;
+        display: grid;
+      }
+      .container {
+        width: min(1200px, 100%);
+        margin-inline: auto;
+        padding: 12px;
+        display: grid;
+        min-height: 100dvh;
+      }
+      h1 {
+        margin: 12px 0 8px 0;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+      .card {
+        border: 1px solid #2b3242;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #0b0c10;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <h1>Bus Routing Game</h1>
+        <div class="card">
+          <Game className="game-host" client:load />
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
