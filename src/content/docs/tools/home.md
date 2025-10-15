@@ -13,6 +13,7 @@ sidebar:
 *  [Pesangon Calculator ](/severance)
 *  [Fertilizer](/fertilizer)
 *  [Resume Chat Bot](/chat)
+*  [Working Hour Visualizer](/hours)
   
 ## Game
 

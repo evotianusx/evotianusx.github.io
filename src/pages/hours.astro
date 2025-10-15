@@ -1,0 +1,10 @@
+---
+import WorkingHours from "../components/WorkingHours.svelte";
+
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+---
+
+<StarlightPage frontmatter={{ title: "Working Hours" }}>
+  Also my resume is <a href="/resume">here</a>
+  <WorkingHours client:load />
+</StarlightPage>
