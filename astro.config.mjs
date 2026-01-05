@@ -1,6 +1,5 @@
 import { defineConfig, passthroughImageService } from "astro/config";
 import starlight from "@astrojs/starlight";
-import tailwind from "@astrojs/tailwind";
 import starlightThemeRapide from "starlight-theme-rapide";
 import svelte from "@astrojs/svelte";
 import mdx from '@astrojs/mdx';
@@ -31,10 +30,18 @@ export default defineConfig({
         // Path to your Tailwind base styles:
         "./src/tailwind.css",
       ],
-      social: {
-        github: "https://github.com/evotianusx",
-        linkedin: "https://www.linkedin.com/in/evotianusb",
-      },
+      social: [
+        {
+          label: 'GitHub',
+          icon: 'github',
+          href: 'https://github.com/evotianusx',
+        },
+        {
+          label: 'LinkedIn',
+          icon: 'linkedin',
+          href: 'https://www.linkedin.com/in/evotianusb',
+        },
+      ],
       sidebar: [
         {
           label: "Home",
@@ -58,10 +65,7 @@ export default defineConfig({
         },
       ],
     }),
-    tailwind({
-      // Disable the default base styles:
-      applyBaseStyles: false,
-    }), mdx(),
+    mdx(),
   ],
   vite: {
     ssr: {

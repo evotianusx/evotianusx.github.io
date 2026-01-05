@@ -1,0 +1,18 @@
+
+> dev
+> astro dev
+
+00:34:24 [types] Generated 1ms
+00:34:25 [content] Syncing content
+00:34:25 [WARN] [glob-loader] The base directory "/app/src/content/i18n/" does not exist.
+00:34:26 [content] Synced content
+00:34:26 [vite] Forced re-optimization of dependencies
+
+ astro  v5.16.6 ready in 3265 ms
+
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+
+00:34:26 watching for file changes...
+00:35:02 [200] /projects/email/grab-food/ 431ms
+00:35:18 [200] /projects/email/grab-food/ 36ms
