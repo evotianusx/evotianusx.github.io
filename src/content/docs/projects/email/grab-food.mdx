@@ -14,10 +14,10 @@ Designed for Google Colab, it leverages native secret management to keep your cr
 
 ## 🚀 Key Features
 
-*   **Monthly Batching**: Fetches data in monthly chunks to avoid connection timeouts with Gmail's IMAP server.
-*   **Deep Parsing**: Uses **BeautifulSoup4** to navigate complex HTML email structures, ensuring accurate data extraction.
-*   **Deduplication**: Fingerprints each receipt (Date + Restaurant) to prevent duplicate entries if the script is re-run.
-*   **Financial Breakdown**: Separates the subtotal, delivery fee, order fee, packaging, and promos for easy budgeting.
+- **Monthly Batching**: Fetches data in monthly chunks to avoid connection timeouts with Gmail's IMAP server.
+- **Deep Parsing**: Uses **BeautifulSoup4** to navigate complex HTML email structures, ensuring accurate data extraction.
+- **Deduplication**: Fingerprints each receipt (Date + Restaurant) to prevent duplicate entries if the script is re-run.
+- **Financial Breakdown**: Separates the subtotal, delivery fee, order fee, packaging, and promos for easy budgeting.
 
 ---
 
@@ -46,8 +46,8 @@ To keep your credentials secure, use Colab's secret management:
 1.  Open the [Google Colab Notebook](https://colab.research.google.com/drive/1lTRCmxX-94QnVGaAhzYkOkuEEqTLEnMh).
 2.  Click the **Key icon** (Secrets) on the left sidebar.
 3.  Add the following secrets:
-    *   `EMAIL_USER`: Your full Gmail address.
-    *   `APP_PASSWORD`: The 16-character code from Step 1.
+    - `EMAIL_USER`: Your full Gmail address.
+    - `APP_PASSWORD`: The 16-character code from Step 1.
 4.  Ensure the **"Notebook access"** toggle is turned **ON** for both.
 
 ---
@@ -56,20 +56,20 @@ To keep your credentials secure, use Colab's secret management:
 
 The script populates the following columns in your Google Sheet:
 
-| Column               | Description                                           |
-| -------------------- | ----------------------------------------------------- |
-| **Date & Exact Time**  | Formatted as `M/D/YYYY HH:MM:SS`                      |
-| **Restaurant Name**  | The store you ordered from                            |
-| **Restaurant Address** | Physical address of the restaurant                    |
-| **Items Ordered**    | Quantity and Name (e.g., `2x Nasi Goreng`)            |
-| **Driver**           | Name of the delivery partner                          |
-| **Delivery Address** | Your delivery destination tag (e.g., "Home")          |
-| **Subtotal**         | Price of food before fees                             |
-| **Delivery**         | Shipping/Delivery cost                                |
-| **Order Fee**        | Grab service fee                                      |
-| **Packaging**        | Restaurant packaging charge                           |
-| **Promo**            | Total discount applied (expressed as a negative number) |
-| **Total**            | Final amount paid                                     |
+| Column                 | Description                                             |
+| ---------------------- | ------------------------------------------------------- |
+| **Date & Exact Time**  | Formatted as `M/D/YYYY HH:MM:SS`                        |
+| **Restaurant Name**    | The store you ordered from                              |
+| **Restaurant Address** | Physical address of the restaurant                      |
+| **Items Ordered**      | Quantity and Name (e.g., `2x Nasi Goreng`)              |
+| **Driver**             | Name of the delivery partner                            |
+| **Delivery Address**   | Your delivery destination tag (e.g., "Home")            |
+| **Subtotal**           | Price of food before fees                               |
+| **Delivery**           | Shipping/Delivery cost                                  |
+| **Order Fee**          | Grab service fee                                        |
+| **Packaging**          | Restaurant packaging charge                             |
+| **Promo**              | Total discount applied (expressed as a negative number) |
+| **Total**              | Final amount paid                                       |
 
 ---
 
@@ -85,3 +85,13 @@ The script populates the following columns in your Google Sheet:
 ## ⚠️ Safety Note
 
 This script only uses your credentials to establish a local connection between the Google Colab environment and Gmail's IMAP server. No data is transmitted to third parties. **Always keep your `APP_PASSWORD` secret.**
+
+---
+
+## 📊 Sample output
+
+| Date & Exact Time  | Restaurant Name                                | Restaurant Address                                 | Items Ordered                                            | Driver           | Delivery Address | Subtotal | Delivery | Order Fee | Packaging | Promo  | Total |
+| ------------------ | ---------------------------------------------- | -------------------------------------------------- | -------------------------------------------------------- | ---------------- | ---------------- | -------- | -------- | --------- | --------- | ------ | ----- |
+| 1/12/2024 18:08:00 | Bakpao GaGa Kawangkoan - Apartment Gading Nias | Apartement Gading Nias                             | 1x 6 Bakpao Babi                                         | Riduan Syahputra | Home             | 75600    | 17000    | 3000      | -         | -34900 | 60700 |
+| 1/20/2024 8:00:00  | Nasi Uduk Hajiten 999 - Rawamangun             | Jl. H. Ten Raya No. 83 ( Samping Warteg Leman ),   | 2x Nasi Uduk Telor Dadar, 2x Bakwan Sayuran, 2x Tahu Isi | Sopyan           | Home             | 44000    | 12000    | 3000      | -         | -16400 | 42600 |
+| 1/21/2024 10:48:00 | Ayam Koplo (Nasi Geprek) - Gading              | Jl. Gading Putih Raya, No.99 (Sebelah Dr.Soetomo), | 1x 5 Nasi Wangi Penyet Sambel Nusantara                  | ABDUL AJID       | Home             | 125001   | 13000    | 3000      | 2500      | -44250 | 99251 |
