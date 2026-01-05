@@ -1,0 +1,88 @@
+---
+title: "GrabFood Expense Tracker for Google Sheets"
+description: "An automation script to track GrabFood expenses in Google Sheets."
+---
+
+# 🌯 GrabFood Expense Tracker for Google Sheets
+
+Tired of manually tracking your GrabFood expenses? This script automates the entire process by connecting to your Gmail, parsing e-receipts, and logging every detail directly into a Google Sheet.
+
+Designed for Google Colab, it leverages native secret management to keep your credentials safe and encrypted.
+
+**Ready to get started?** Grab the [Google Colab Notebook](https://colab.research.google.com/drive/1lTRCmxX-94QnVGaAhzYkOkuEEqTLEnMh) and follow the setup guide below.
+
+---
+
+## 🚀 Key Features
+
+*   **Monthly Batching**: Fetches data in monthly chunks to avoid connection timeouts with Gmail's IMAP server.
+*   **Deep Parsing**: Uses **BeautifulSoup4** to navigate complex HTML email structures, ensuring accurate data extraction.
+*   **Deduplication**: Fingerprints each receipt (Date + Restaurant) to prevent duplicate entries if the script is re-run.
+*   **Financial Breakdown**: Separates the subtotal, delivery fee, order fee, packaging, and promos for easy budgeting.
+
+---
+
+## 🛠️ Setup & Requirements
+
+### 1. Google Account Security (App Password)
+
+To connect to Gmail via IMAP, you'll need an **App Password**. Standard passwords won't work if you have 2-Step Verification enabled.
+
+1.  Go to your [Google Account Security Settings](https://myaccount.google.com/security).
+2.  Search for **"App Passwords"**.
+3.  Create a new app named `GrabFood Tracker`.
+4.  **Copy the 16-character code**. You'll need it in a later step.
+
+### 2. Google Sheets Configuration
+
+1.  Create a new Google Sheet.
+2.  Get your **Spreadsheet ID** from the URL:
+    `docs.google.com/spreadsheets/d/`**`[YOUR_ID_HERE]`**`/edit`
+3.  The script will automatically create the header row if the sheet is empty.
+
+### 3. Colab Secrets Management
+
+To keep your credentials secure, use Colab's secret management:
+
+1.  Open the [Google Colab Notebook](https://colab.research.google.com/drive/1lTRCmxX-94QnVGaAhzYkOkuEEqTLEnMh).
+2.  Click the **Key icon** (Secrets) on the left sidebar.
+3.  Add the following secrets:
+    *   `EMAIL_USER`: Your full Gmail address.
+    *   `APP_PASSWORD`: The 16-character code from Step 1.
+4.  Ensure the **"Notebook access"** toggle is turned **ON** for both.
+
+---
+
+## 📋 Data Structure
+
+The script populates the following columns in your Google Sheet:
+
+| Column               | Description                                           |
+| -------------------- | ----------------------------------------------------- |
+| **Date & Exact Time**  | Formatted as `M/D/YYYY HH:MM:SS`                      |
+| **Restaurant Name**  | The store you ordered from                            |
+| **Restaurant Address** | Physical address of the restaurant                    |
+| **Items Ordered**    | Quantity and Name (e.g., `2x Nasi Goreng`)            |
+| **Driver**           | Name of the delivery partner                          |
+| **Delivery Address** | Your delivery destination tag (e.g., "Home")          |
+| **Subtotal**         | Price of food before fees                             |
+| **Delivery**         | Shipping/Delivery cost                                |
+| **Order Fee**        | Grab service fee                                      |
+| **Packaging**        | Restaurant packaging charge                           |
+| **Promo**            | Total discount applied (expressed as a negative number) |
+| **Total**            | Final amount paid                                     |
+
+---
+
+## 🏃 How to Run
+
+1.  Open the [Google Colab Notebook](https://colab.research.google.com/drive/1lTRCmxX-94QnVGaAhzYkOkuEEqTLEnMh).
+2.  Update the `SPREADSHEET_ID` variable with your ID.
+3.  Adjust the `start_date` and `end_date` to define your lookup window.
+4.  Run the cell. You'll be prompted to authorize the **Google Sheets API**.
+
+---
+
+## ⚠️ Safety Note
+
+This script only uses your credentials to establish a local connection between the Google Colab environment and Gmail's IMAP server. No data is transmitted to third parties. **Always keep your `APP_PASSWORD` secret.**
