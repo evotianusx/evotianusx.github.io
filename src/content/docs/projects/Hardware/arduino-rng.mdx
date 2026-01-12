@@ -8,6 +8,15 @@ pubDate: "Jan 11 2026"
 
 This project details the development of an ultra-low latency trading simulator designed to interface physical hardware (Arduino) with a high-performance Python-based analytical engine. The implementation serves as a comprehensive demonstration of real-time binary data ingestion, multi-threaded concurrency management, and the integration of automated risk mitigation protocols within a hardware-software ecosystem.
 
+## **TLDR**
+
+[Youtube Shorts](https://www.youtube.com/shorts/VDHP2wRmV9Y)
+
+1. Arduino continously broadcast RNG, using specific packet config to mimic an exchange data (with a volatility that depends on the LDR)
+2. On Button Press the Python script will record the order
+3. Python sends the current price data into the LCD
+4. Just so i can try 2 way communication between python and an analogue datasource
+
 ## **🚀 System Architecture**
 
 The system utilizes a **Producer-Consumer** architectural pattern to decouple high-frequency input/output (I/O) operations from the core execution logic. This separation is critical for maintaining deterministic performance and ensuring the zero-drop ingestion of market data.
