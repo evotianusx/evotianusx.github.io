@@ -53,15 +53,23 @@ export default defineConfig({
         },
         {
           label: "Projects",
-          autogenerate: {
-            directory: "projects",
-          },
+          items: [
+            {
+              autogenerate: {
+                directory: "projects",
+              },
+            },
+          ],
         },
         {
           label: "Tools",
-          autogenerate: {
-            directory: "tools",
-          },
+          items: [
+            {
+              autogenerate: {
+                directory: "tools",
+              },
+            },
+          ],
         },
       ],
     }),
